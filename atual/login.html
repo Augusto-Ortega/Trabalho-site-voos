@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Viaja Brasil</title>
+    <link rel="stylesheet" href="styles2.css">
+    <script>
+        // Função para ler o arquivo de texto com as credenciais
+        async function fetchUserData() {
+            const response = await fetch('usuarios.txt');
+            const data = await response.text();
+            return data;
+        }
+
+        // Função para realizar o login
+        async function login(event) {
+            event.preventDefault(); // Evita o envio do formulário
+
+            const email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+
+            // Criptografa a senha antes da comparação
+            password = btoa(password);
+
+            // Lê os dados do arquivo de usuários
+            const userData = await fetchUserData();
+            const users = userData.trim().split('\n').map(line => line.split(','));
+
+            // Verifica se o email e senha correspondem a um usuário no arquivo
+            let validUser = false;
+
+            users.forEach(user => {
+                const [registeredEmail, hashedPassword] = user;
+
+                // Checa o e-mail e a senha
+                if (registeredEmail === email && password === hashedPassword) {
+                    validUser = true;
+                }
+            });
+
+            if (validUser) {
+                alert('Login bem-sucedido!');
+                // Redireciona para a página principal ou dashboard
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('E-mail ou senha incorretos!');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="login-wrapper">
+        <h1 class="brand-title">Viaja Brasil</h1>
+    </div>
+    
+    <div class="login-box">
+        <h2>Bem-vindo de Volta!</h2>
+        <p>Faça login para continuar</p>
+        <form onsubmit="login(event)">
+            <div class="input-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+            </div>
+            <div class="options">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Lembrar de mim</label>
+                </div>
+                <a href="#" class="forgot-password">Esqueceu a senha?</a>
+            </div>
+            <button type="submit">Entrar</button>
+        </form>
+        <p class="signup-link">Não tem uma conta? <a href="registro.html">Cadastre-se</a></p>
+    </div>
+</body>
+</html>
