@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles3.css">
+    <title>Busca de Voos</title>
+    <script src="voos.js"></script>
+    <script>
+        // Função de busca de voos
+        function buscarVoos(origemBusca, destinoBusca, dataBusca) {
+            let resultados = voos.filter(voo => {
+                // Comparação de origem e destino
+                let condicaoOrigemDestino = voo.origem.toLowerCase() === origemBusca.toLowerCase() &&
+                                            voo.destino.toLowerCase() === destinoBusca.toLowerCase();
+
+                // Se a data for especificada, inclui também a comparação de datas
+                if (dataBusca) {
+                    return condicaoOrigemDestino && voo.data === dataBusca;
+                }
+
+                // Se a data não for especificada, retorna apenas pela origem e destino
+                return condicaoOrigemDestino;
+            });
+
+            return resultados;
+        }
+
+        // Função para exibir os resultados na página
+        function exibirResultados() {
+            const origemInput = document.getElementById("origem").value;
+            const destinoInput = document.getElementById("destino").value;
+            const dataInput = document.getElementById("data").value;
+
+            // Chama a função de busca com os valores fornecidos
+            const resultados = buscarVoos(origemInput, destinoInput, dataInput);
+
+            const resultadosDiv = document.getElementById("resultados");
+            resultadosDiv.innerHTML = "";
+
+            if (resultados.length > 0) {
+                resultados.forEach(voo => {
+                    const vooElement = document.createElement("div");
+                    vooElement.innerHTML = `
+                        <p><strong>Origem:</strong> ${voo.origem}</p>
+                        <p><strong>Destino:</strong> ${voo.destino}</p>
+                        <p><strong>Data:</strong> ${voo.data}</p>
+                        <p><strong>Horário:</strong> ${voo.horario}</p>
+                        <p><strong>Preço:</strong> R$${voo.preco.toFixed(2)}</p>
+                        <hr>
+                    `;
+                    resultadosDiv.appendChild(vooElement);
+                });
+            } else {
+                resultadosDiv.innerHTML = "<p>Nenhum voo encontrado.</p>";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Busca de Voos</h1>
+    <form onsubmit="event.preventDefault(); exibirResultados();">
+        <label for="origem">Origem:</label>
+        <input type="text" id="origem" required>
+        <br><br>
+        <label for="destino">Destino:</label>
+        <input type="text" id="destino" required>
+        <br><br>
+        <label for="data">Data (opcional):</label>
+        <input type="date" id="data">
+        <br><br>
+        <button type="submit">Buscar Voos</button>
+    </form>
+    <h2>Resultados:</h2>
+    <div id="resultados"></div>
+</body>
+</html>
