@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles3.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Busca de Voos</title>
+    <script src="../js/voos.js" defer></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/busca.js"></script>
+    <script src="../js/cidades.js" defer></script> <!-- Novo arquivo JS -->
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Busca de Voos</h1>
+            <nav>
+                <a href="busca-voos.html" class="cta-button">Buscar Voos</a>
+                <a href="#sobre-nos">Sobre Nós</a>
+                <a href="#contato">Contato</a>
+                <a href="minhascompras.html">Minhas Passagens</a>
+            </nav>
+        </div>
+    </header>
+    <form onsubmit="event.preventDefault(); exibirResultados();">
+        <label for="origem">Origem:</label>
+        <div style="position: relative;">
+            <input type="text" id="origem" oninput="filtrarSugestoes(this.value, 'sugestoesOrigem')">
+            <div id="sugestoesOrigem" class="suggestions"></div>
+        </div>
+        <br><br>
+        <label for="destino">Destino:</label>
+        <div style="position: relative;">
+            <input type="text" id="destino" oninput="filtrarSugestoes(this.value, 'sugestoesDestino')">
+            <div id="sugestoesDestino" class="suggestions"></div>
+        </div>
+        <br><br>
+        <label for="mes">Mês (opcional):</label>
+        <input type="month" id="mes">
+        <br><br>
+        <button type="submit">Buscar Voos</button>
+    </form>
+    <h2>Resultados:</h2>
+    <div id="resultados"></div>
+</body>
+</html>
