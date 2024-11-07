@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Pagamento - Voo</title>
     <link rel="stylesheet" href="../css/PaginaPagamento.css">
-    <link rel="stylesheet" href="../css/styles.css"> <!-- Link para o CSS caso tenha -->
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body>
     <script src="../js/auth.js"></script>
-
+    <div id="wrapper">
     <div class="container">
-
+        <a href="index.html">
+        <h1>VPAZ</h1>
+        </a>
         <h1>Página de Pagamento</h1>
 
-        <div class="flight-details">
+        <div class="flight-details" >
             <h2>Detalhes do Voo</h2>
             <p id="origem"></p>
             <p id="destino"></p>
@@ -24,7 +26,7 @@
         </div>
 
         <!-- Formulário de pagamento -->
-        <form id="payment-form">
+        <form id="payment-form" >
             <h2>Informações de Pagamento</h2>
             <label for="payment-method">Método de Pagamento</label>
             <select id="payment-method" name="payment-method" required>
@@ -56,6 +58,7 @@
             <p>Obrigado por comprar conosco. Você receberá uma confirmação no seu e-mail.</p>
         </div>
     </div>
+</div>
 
     <script>
         // Carregar o e-mail do usuário do localStorage e preencher o campo oculto
